@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button onclick="User1()">1</button>
+        <button onclick="User2()">2</button>
+    </div>
+    <script>
+        class User{
+            constructor(name, sername, card, password, card2, password2) {
+            this.name = name;
+            this.sername = sername;
+            this.card = card;
+            this.password = password;
+            this.card2 = card2;
+            this.password2 = password2;
+            }}
+        class Bank{
+            constructor(balance_card1, balance_card2) {
+            this.balance_card1 = balance_card1;
+            this.balance_card2 = balance_card2;
+        }}
+        let whatuser = 0
+        let whatbalance = 0
+        let success = 0
+        let users = []
+        let banks = []
+        users.push(new User("name1", "surname1", "1111 1111 1111 1111", "1234", "2222 2222 2222 2222", "5678"), new User("name2", "surname2", "3333 3333 3333 3333", "4321", "4444 4444 4444 4444", "8765")) 
+        banks.push(new Bank(4500, 1000), new Bank(9999999, -100))
+        console.log(users)
+        console.log(banks)
+        function reg(){
+            if(whatuser == 1){
+            let whatcard = prompt("Введите номер карты:")
+                if(whatcard == users[whatuser-1].card){
+                if(prompt("Введите пароль:") == users[whatuser-1].password){
+                    alert("Вы вошли")
+                    return success = 1, whatbalance = 1}
+                else{alert("Неверный пароль")}}
+                else if(whatcard == users[whatuser-1].card2){
+                if(prompt("Введите пароль:") == users[whatuser-1].password2){
+                    alert("Вы вошли")
+                    return success = 1, whatbalance = 2}
+                else{alert("Неверный пароль")}}}
+            else if(whatuser == 2){
+                let whatcard = prompt("Введите номер карты:")
+                if(whatcard == users[whatuser-1].card){
+                if(prompt("Введите пароль:") == users[whatuser-1].password){
+                alert("Вы вошли")
+                return success = 1, whatbalance = 1}
+                else{alert("Неверный пароль")}}
+                else if(whatcard == users[whatuser-1].card2){
+                if(prompt("Введите пароль:") == users[whatuser-1].password2){
+                alert("Вы вошли")
+                return success = 1, whatbalance = 2}
+                else{alert("Неверный пароль")}}}}
+        function User1(){
+            whatuser = 1
+            switch(prompt("Введите цифру действия, которое хотите выполнить:\n1) Оплата мобильной связи\n2)Снятие наличных\n3)Пополнение счёта\n4)Просмотр баланса пользователя\n5)Изменение пароля\n6)Перевод средств другому пользователю ")){
+            case '1':
+                reg()
+                if(success == 1){     
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 -= 1001}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card2 -= 1000}
+                    alert("Вы оплатили 1000 за мобильную связь") 
+                    return success = 0
+                }
+            case '2':
+                reg()
+                if(success == 1){
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 -= prompt("Введите количество которое хотите снять")}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card1 -= prompt("Введите количество которое хотите снять")}
+                    return success = 0
+                }
+            case '3':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 += prompt("Введите количество которое хотите положить")}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card1 += prompt("Введите количество которое хотите положить")}
+                    return success = 0
+                }
+            case '4':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){alert(banks[whatuser-1].balance_card1)}
+                    else if(whatbalance == 2){alert(banks[whatuser-1].balance_card1)}
+                    return success = 0
+                }
+            case '5':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){users[whatuser-1].password = prompt("Введите новый пароль:")}
+                    else if(whatbalance == 2){users[whatuser-1].password2 = prompt("Введите новый пароль:")}
+                    return success = 0
+                }
+            case '6':
+            reg()
+                if(success == 1){
+                    let b = prompt("Введите карту пользователя, которому хотите перевести средства")
+                    if(whatbalance == 1){
+                        if(b == users[1].card){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[0].balance_card1 -= a
+                            banks[1].balance_card1 += a
+                        }}
+                        if(b == users[1].card2){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[0].balance_card1 -= a
+                            banks[1].balance_card2 += a
+                        }
+                    else if(whatbalance == 2){
+                        if(b == users[1].card){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[0].balance_card2 -= a
+                            banks[1].balance_card1 += a
+                        }}
+                        if(b == users[1].card2){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[0].balance_card2 -= a
+                            banks[1].balance_card2 += a
+                        }
+
+                    }
+                    return success = 0
+                }}
+        function User2(){
+            whatuser = 2
+            switch(prompt("Введите цифру действия, которое хотите выполнить:\n1) Оплата мобильной связи\n2)Снятие наличных\n3)Пополнение счёта\n4)Просмотр баланса пользователя\n5)Изменение пароля\n6)Перевод средств другому пользователю ")){
+            case '1':
+                reg()
+                if(success == 1){     
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 -= 1001}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card2 -= 1000}
+                    alert("Вы оплатили 1000 за мобильную связь") 
+                    return success = 0
+                }
+            case '2':
+                reg()
+                if(success == 1){
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 -= prompt("Введите количество которое хотите снять")}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card1 -= prompt("Введите количество которое хотите снять")}
+                    return success = 0
+                }
+            case '3':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){banks[whatuser-1].balance_card1 += prompt("Введите количество которое хотите положить")}
+                    else if(whatbalance == 2){banks[whatuser-1].balance_card1 += prompt("Введите количество которое хотите положить")}
+                    return success = 0
+                }
+            case '4':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){alert(banks[whatuser-1].balance_card1)}
+                    else if(whatbalance == 2){alert(banks[whatuser-1].balance_card1)}
+                    return success = 0
+                }
+            case '5':
+            reg()
+                if(success == 1){
+                    if(whatbalance == 1){users[whatuser-1].password = prompt("Введите новый пароль:")}
+                    else if(whatbalance == 2){users[whatuser-1].password2 = prompt("Введите новый пароль:")}
+                    return success = 0
+                }
+            case '6':
+            reg()
+                if(success == 1){
+                    let b = prompt("Введите карту пользователя, которому хотите перевести средства")
+                    if(whatbalance == 1){
+                        if(b == users[1].card){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[1].balance_card1 -= a
+                            banks[0].balance_card1 += a
+                        }}
+                        if(b == users[1].card2){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[1].balance_card1 -= a
+                            banks[0].balance_card2 += a
+                        }
+                    else if(whatbalance == 2){
+                        if(b == users[1].card){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[1].balance_card2 -= a
+                            banks[0].balance_card1 += a
+                        }}
+                        if(b == users[1].card2){
+                            let a = prompt("Введите количество, которое вы хотите перевести")
+                            banks[1].balance_card2 -= a
+                            banks[0].balance_card2 += a
+                        }
+
+                    }
+                    return success = 0
+                }}
+    </script>
+</body>
+</html>
